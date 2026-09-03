@@ -6,7 +6,6 @@ services:
     container_name: ${PAPERCLIP_HOST}
     hostname: ${PAPERCLIP_HOST}
     restart: unless-stopped
-    # Does not work on a Apple Mac Docer Setup
     security_opt:
       - apparmor=octobot-sandbox
       - seccomp=/etc/security/seccomp-octobot-userns.json
@@ -22,7 +21,6 @@ services:
           - paperclip01
     labels:
       - traefik.enable=true
-      # Paperclip
       - traefik.http.services.paperclip${ID}-${COMPOSE_PROJECT_NAME}-LB.loadbalancer.server.port=${PAPERCLIP_PORT:-3100}
       - traefik.http.routers.paperclip${ID}-${COMPOSE_PROJECT_NAME}-R.rule=Host(`${PAPERCLIP_FQDN}`)
       - traefik.http.routers.paperclip${ID}-${COMPOSE_PROJECT_NAME}-R.service=paperclip${ID}-${COMPOSE_PROJECT_NAME}-LB
@@ -123,19 +121,6 @@ services:
       HOSTINGER_EMAIL_API_KEY: "${HOSTINGER_EMAIL_API_KEY:-}"
       OPENCLAW_PORT: ${OPENCLAW_PORT:-18789}
       WEB_PORT: ${WEB_PORT:-8090}
-      HERMES_PORT_WEB: ${HERMES_PORT_WEB:-9119}
-      HERMES_PORT_API: ${HERMES_PORT_API:-8642}
-      HERMES_UID: "${HERMES_UID:-10010}"
-      HERMES_IMAGE: "${HERMES_IMAGE:-}"
-      HERMES_FQDN: "${HERMES_FQDN:-}"
-      HERMES_LOGIN: "${HERMES_LOGIN:-hermes}"
-      HERMES_HOME: "${HERMES_HOME:-/home/hermes}"
-      HERMES_PASSWORD: "${HERMES_PASSWORD:-NeedToSetThePassword}"
-      DASHBOARD_HOST: "${DASHBOARD_HOST:-}"
-      WORKSPACE_HOST: "${WORKSPACE_HOST:-}"
-      HERMES_DASHBOARD_BASIC_AUTH_USERNAME: "${HERMES_DASHBOARD_BASIC_AUTH_USERNAME:-hermes}"
-      HERMES_DASHBOARD_BASIC_AUTH_PASSWORD: "${HERMES_DASHBOARD_BASIC_AUTH_PASSWORD:-NeedToSetThePassword}"
-      HERMES_DASHBOARD_BASIC_AUTH_SECRET: "${HERMES_DASHBOARD_BASIC_AUTH_SECRET:-NeedToSetTheSecret}"
       API_SERVER_KEY: "${API_SERVER_KEY:-NeedToSetTheKey}"
       ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
       ANTHROPIC_AUTH_TOKEN: "${ANTHROPIC_AUTH_TOKEN:-}"
