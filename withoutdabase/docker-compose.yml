@@ -1,3 +1,5 @@
+# withoutdatabase/docker-compose.yml
+# v87
 services:
   paperclip01:
     read_only: ${BOT_INSTALL_RO:-true}
