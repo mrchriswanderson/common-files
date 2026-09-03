@@ -7,7 +7,7 @@
 services:
   paperclip01:
     read_only: ${BOT_INSTALL_RO:-true}
-    image: "${DOCKER_IMAGE:-youritdepartment/youraiengineroom:latest}"
+    image: "${DOCKER_IMAGE}"
     pull_policy: missing
     container_name: ${PAPERCLIP_HOST}
     hostname: ${PAPERCLIP_HOST}
@@ -37,42 +37,8 @@ services:
       - traefik.http.routers.paperclip${ID}-${COMPOSE_PROJECT_NAME}-R.entrypoints=websecure
       - traefik.http.routers.paperclip${ID}-${COMPOSE_PROJECT_NAME}-R.tls.certresolver=letsencrypt
       - traefik.http.routers.paperclip${ID}-${COMPOSE_PROJECT_NAME}-R.middlewares=${FOWARDAUTH_MW}
-      # # Web Dashboard / Web Page - Port 8090
-      # - traefik.http.services.web${ID}-${COMPOSE_PROJECT_NAME}-LB.loadbalancer.server.port=${WEB_PORT:-8090}
-      # - traefik.http.routers.web${ID}-${COMPOSE_PROJECT_NAME}-R.rule=Host(`web.${PAPERCLIP_FQDN}`)
-      # - traefik.http.routers.web${ID}-${COMPOSE_PROJECT_NAME}-R.service=web${ID}-${COMPOSE_PROJECT_NAME}-LB
-      # - traefik.http.routers.web${ID}-${COMPOSE_PROJECT_NAME}-R.entrypoints=websecure
-      # - traefik.http.routers.web${ID}-${COMPOSE_PROJECT_NAME}-R.tls.certresolver=letsencrypt
-      # - traefik.http.routers.web${ID}-${COMPOSE_PROJECT_NAME}-R.middlewares=${FOWARDAUTH_MW}
-      # # Hermes
-      # - traefik.http.services.hermes${ID}-${COMPOSE_PROJECT_NAME}-LB.loadbalancer.server.port=${HERMES_PORT_WEB:-9119}
-      # - traefik.http.routers.hermes${ID}-${COMPOSE_PROJECT_NAME}-R.rule=Host(`hermes.${PAPERCLIP_FQDN}`)
-      # - traefik.http.routers.hermes${ID}-${COMPOSE_PROJECT_NAME}-R.service=hermes${ID}-${COMPOSE_PROJECT_NAME}-LB
-      # - traefik.http.routers.hermes${ID}-${COMPOSE_PROJECT_NAME}-R.entrypoints=websecure
-      # - traefik.http.routers.hermes${ID}-${COMPOSE_PROJECT_NAME}-R.tls.certresolver=letsencrypt
-      # - traefik.http.routers.hermes${ID}-${COMPOSE_PROJECT_NAME}-R.middlewares=${FOWARDAUTH_MW}
-      # # Open Claw
-      # - traefik.http.services.claw${ID}-${COMPOSE_PROJECT_NAME}-LB.loadbalancer.server.port=${OPENCLAW_PORT:-18789}
-      # - traefik.http.routers.claw${ID}-${COMPOSE_PROJECT_NAME}-R.rule=Host(`claw.${PAPERCLIP_FQDN}`)
-      # - traefik.http.routers.claw${ID}-${COMPOSE_PROJECT_NAME}-R.service=claw${ID}-${COMPOSE_PROJECT_NAME}-LB
-      # - traefik.http.routers.claw${ID}-${COMPOSE_PROJECT_NAME}-R.entrypoints=websecure
-      # - traefik.http.routers.claw${ID}-${COMPOSE_PROJECT_NAME}-R.tls.certresolver=letsencrypt
-      # - traefik.http.routers.claw${ID}-${COMPOSE_PROJECT_NAME}-R.middlewares=${FOWARDAUTH_MW}
-      #---------------------------------------------------------------------------------------------------------------
-      # Callback - Temporary for testing - will be removed in future versions
-      - traefik.http.services.callback${ID}-${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8070
-      - traefik.http.routers.callback${ID}-${COMPOSE_PROJECT_NAME}.rule=Host(`callback${ID}.${VPS}.${DOMAIN}`)
-      - traefik.http.routers.callback${ID}-${COMPOSE_PROJECT_NAME}.service=callback${ID}-${COMPOSE_PROJECT_NAME}
-      - traefik.http.routers.callback${ID}-${COMPOSE_PROJECT_NAME}.entrypoints=websecure
-      - traefik.http.routers.callback${ID}-${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
-      - traefik.http.routers.callback${ID}-${COMPOSE_PROJECT_NAME}-http.rule=Host(`callback${ID}.${VPS}.${DOMAIN}`)
-      - traefik.http.routers.callback${ID}-${COMPOSE_PROJECT_NAME}-http.entrypoints=web
-      - traefik.http.routers.callback${ID}-${COMPOSE_PROJECT_NAME}-http.service=callback${ID}-${COMPOSE_PROJECT_NAME}
-      - traefik.http.routers.callback${ID}-${COMPOSE_PROJECT_NAME}-http.middlewares=callback${ID}-${COMPOSE_PROJECT_NAME}-redirect
-      - traefik.http.middlewares.callback${ID}-${COMPOSE_PROJECT_NAME}-redirect.redirectscheme.scheme=https
-      - traefik.http.middlewares.callback${ID}-${COMPOSE_PROJECT_NAME}-redirect.redirectscheme.permanent=true
     environment:
-      IMAGE: ${DOCKER_IMAGE:-youritdepartment/youraiengineroom:latest}
+      IMAGE: "${DOCKER_IMAGE}"
       COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
       COMPOSE_SERVICE: "paperclip01"
       CONTAINER_NAME: "${PAPERCLIP_HOST}"
