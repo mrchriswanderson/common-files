@@ -12,9 +12,6 @@ services:
       - apparmor=octobot-sandbox
       - seccomp=/etc/security/seccomp-octobot-userns.json
       - systempaths=unconfined
-    depends_on:
-      postgres01:
-        condition: service_healthy
     ports:
       - "${BOT_SSH_PORT}:22"
     networks:
